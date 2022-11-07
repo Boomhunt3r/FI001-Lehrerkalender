@@ -17,7 +17,7 @@ def get_post(post_id):
     return post
 
 app = Flask(__name__)
-app.config['SECRET KEY'] = 'your secret key'
+app.config['SECRET KEY'] = 'Der geheime geheim Key'
 
 @app.route('/')
 def index():
@@ -77,7 +77,6 @@ def delete(id):
     conn.execute('DELETE FROM posts WHERE id = ?', (id,))
     conn.commit()
     conn.close()
-    flash('"{}" was successfully deleted!'.format(post['title']))
     return redirect(url_for('index'))
 
 app.run()
