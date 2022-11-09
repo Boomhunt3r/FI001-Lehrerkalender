@@ -3,6 +3,12 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 import datatime
 
+
+
+app = Flask(__name__)
+app.config['SECRET KEY'] = 'Der geheime geheim Key'
+app.config['DEBUG'] = True
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -17,15 +23,12 @@ def get_post(post_id):
         abort(404)
     return post
 
-app = Flask(__name__)
-app.config['SECRET KEY'] = 'Der geheime geheim Key'
-
 @app.route('/')
 def index():
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
-    conn.close()
-    return render_template('index.html', posts=posts)
+    #conn = get_db_connection()
+    #posts = conn.execute('SELECT * FROM posts').fetchall()
+    #conn.close()
+    return render_template('index.html')
 
 @app.route('/<int:post_id>')
 def post(post_id):
