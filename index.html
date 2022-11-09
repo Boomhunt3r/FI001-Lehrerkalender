@@ -3,58 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Login </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Lehrerkalender-Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/index.css" >
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css" >
 </head>
 
 <body>
-    <div class="container mt-5 mx-auto">
-        <div class="row justify-self-center">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <img width="100%" height="100%" alt="logo" src="./assets/Images/calendar-days-solid.png">
+    <div class="center">
+        <h1>Login</h1>
+        <form method="post">
+            <div class="txt_field">
+                <input type="text" placeholder="E-Mail" required>
             </div>
-        </div>
-        <form class="form-inline mt-5">
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-6 col-lg-2">
-                    <label for="username"><strong>Benutzername:</strong></label>
-                </div>
-                <div class="col-6 col-lg-2">
-                    <input id="username">
-                </div>
+            <div class="txt_field">
+                <input type="password" placeholder="Password" required>
             </div>
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-6 col-lg-2 mt-2">
-                    <label for="password"><strong>Passwort:</strong></label>
-                </div>
-                <div class="col-6 col-lg-4 mt-2">
-                    <input id="passwort" type="password">
-                </div>
+            <input type="submit" value="Login">
+            <div class="signup_link">
+                Kein Mitglied? <a href="/components/register.html">Hier registrieren!</a>
             </div>
         </form>
-        <!-- replace with button when backend works -->
-        <div class="row mt-5 px-1">
-            <div class="col-lg-4"></div>
-            <a class="col-12 col-lg-4 mt-1 btn btn-primary align-middle" href="">Login</a>
-        </div>
-        <div class="row px-1">
-            <div class="col-lg-4"></div>
-            <a class="col-12 col-lg-4 mt-1 btn btn-secondary align-middle" href="/components/changePassword.html">Passwort
-                vergessen?</a>
-        </div>
-        <div class="row px-1">
-            <div class="col-lg-4"></div>
-            <a class="mt-1 col-12 col-lg-4 btn btn-secondary align-middle" href="/components/register.html">Jetzt hier registrieren!</a>
-        </div>
     </div>
 </body>
 </html>
