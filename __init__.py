@@ -10,7 +10,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'thekey'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
-    db.init_app(app)
+    #db.init_app(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -29,3 +29,5 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
+create_app().run()

@@ -4,7 +4,7 @@ from werkzeug.exceptions import abort
 import datatime
 
 def get_db_connection():
-    conn = sqlite3.connect('lehrerkalender.db')
+    conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -114,7 +114,7 @@ def get_student(id):
 
 def get_all_appointments():
     conn = get_db_connection()
-    appointments = conn.execute('SELECT * FROM Termin').fetchall()
+    appointments = conn.execute('SELECT * FROM Termin ORDER BY Wochentag').fetchall()
     return appointments
 
 def get_appointment(id):
@@ -155,4 +155,4 @@ def set_login_data(Email, Password):
     conn.commit()
     conn.close()
 
-#app.run()
+app.run()

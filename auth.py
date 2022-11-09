@@ -18,8 +18,8 @@ def login_post():
     user = Server.get_login_data(email)
     # user = User.query.filter_by(email=email).first()
 
-    if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+    if not user or not check_password_hash(user[2], password):
+        flash('Bitte überprüfe deine Anmelde-Daten.')
         return redirect(url_for('auth.login'))
 
     login_user(user)
@@ -40,9 +40,7 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(email=email, password=generate_password_hash(password, method='sha256'))
-    # db.session.add(new_user)
-    # db.session.commit()
+    Server.set_login_data(email, generate_password_hash(password, method='sha256'))
 
     return redirect((url_for('auth.login')))
 
