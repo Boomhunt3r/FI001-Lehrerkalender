@@ -34,8 +34,9 @@
         </tbody>
       </table>
       <div class="container">
+          <form method="post">
         <div id="data">
-            <input type="text" name="name" id="name" placeholder="Vorname">
+            <input type="text" name="forename" id="name" placeholder="Vorname">
             <input type="text" name="surname" id="surname" placeholder="Nachname">
             <input type="number" name="postcode" id="postcode" placeholder="Postleitzahl">
             <input type="text" name="street" id="street" placeholder="Straße">
@@ -43,6 +44,7 @@
             <input type="text" name="teacher" id="teacher" placeholder="Lehrer/in">
             <button>Hinzufügen</button>
         </div>
+          </form>
       </div>
 
       <script src="{{ url_for('static', filename= 'js/script.js') }}"></script>

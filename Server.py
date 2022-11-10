@@ -84,23 +84,23 @@ def post(post_id):
     post = get_post(post_id)
     return render_template('classTable.html', classes=post)
 
-@app.route('/create', methods=('GET', 'POST'))
+@app.route('/dashboard', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
+        name = request.form['forename']
+        surname = request.form['surname']
+        postcode = request.form['postcode']
+        street = request.form['street']
+        housenumber = request.form['number']
+        teacher = request.form['teacher']
 
-        if not title:
-            flash('Title is required')
+        if not name:
+            flash('Bitte geben sie einen Namen an.')
         else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO posts(title, content) VALUES (?, ?)',
-                         (title, content))
-            conn.commit()
-            conn.close()
+            databaseHandler.set_student(name,surname, 'FI001', teacher, postcode, street, housenumber)
             return redirect(url_for('dashboard'))
 
-    return render_template('create.html')
+    return render_template('dashboard.html')
 
 @app.route('/<int:id>/edit', methods=('GET', 'POST'))
 def edit(id):
