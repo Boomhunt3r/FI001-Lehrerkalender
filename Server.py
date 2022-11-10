@@ -72,15 +72,15 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/sidebar')
+def sidebar():
+    return render_template('sideBar.html')
+
 @app.route('/classtable')
 def classtable():
     students = databaseHandler.get_all_students()
     print(students)
     return render_template('classTable.html', students=students)
-
-@app.route('/sidebar')
-def sidebar():
-    return render_template('sideBar.html')
 
 @app.route('/classtable', methods=('GET', 'POST'))
 def create_student():
@@ -100,34 +100,13 @@ def create_student():
 
     return render_template('classTable.html')
 
-@app.route('/<int:id>/edit', methods=('GET', 'POST'))
-def edit(id):
-    post = get_post(id)
+@app.route('/classlist')
+def classlist():
+    classes = databaseHandler.get_all_classes()
+    return render_template('class.html', classes=classes)
 
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-
-        if not title:
-            flash('Title is required!')
-        else:
-            conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?'
-                         'WHERE id = ?',
-                         (title, content, id))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('dashboard'))
-
-    return render_template('edit.html', post=post)
-
-@app.route('/<int:id>/delete', methods=('POST',))
-def delete(id):
-    post = get_post(id)
-    conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('index'))
+@app.route('/classlist', methods=('POST'))
+def create_class():
+    return render_template('class.html')
 
 app.run()
