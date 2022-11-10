@@ -13,13 +13,13 @@ body{
   color: #fff;
   background: #618cf8;
 }
-.wrapper{
+.wrapper-notes{
   margin: 50px;
   display: grid;
   gap: 25px;
   grid-template-columns: repeat(auto-fill, 265px);
 }
-.wrapper li{
+.wrapper-notes li{
   height: 250px;
   list-style: none;
   border-radius: 5px;
@@ -171,29 +171,29 @@ body{
 .popup-box.show .popup{
   transform: translate(-50%, -50%) scale(1);
 }
-.popup .content{
+.popup .content-pop{
   border-radius: 5px;
   background: #fff;
   width: calc(100% - 15px);
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
-.content header{
+.content-pop header{
   padding: 15px 25px;
   border-bottom: 1px solid #ccc;
 }
-.content header p{
+.content-pop header p{
   font-size: 20px;
   font-weight: 500;
 }
-.content header i{
+.content-pop header i{
   color: #8b8989;
   cursor: pointer;
   font-size: 23px;
 }
-.content form{
+.content-pop form{
   margin: 15px 25px 35px;
 }
-.content form .row{
+.content-pop form .row{
   margin-bottom: 20px;
 }
 form .row label{
