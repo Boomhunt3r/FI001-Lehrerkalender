@@ -46,7 +46,7 @@ def login_post():
     app.config['SECRET_KEY'] = 'login'
 
     login_user(user)
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('sidebar'))
 
 @app.route('/signup')
 def signup():
@@ -68,24 +68,23 @@ def signup_post():
     return redirect((url_for('index')))
 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/classtable')
+def classtable():
     students = databaseHandler.get_all_students()
     print(students)
     return render_template('classTable.html', students=students)
 
-@app.route('/<int:post_id>')
-def post(post_id):
-    post = get_post(post_id)
-    return render_template('classTable.html', classes=post)
+@app.route('/sidebar')
+def sidebar():
+    return render_template('sideBar.html')
 
-@app.route('/dashboard', methods=('GET', 'POST'))
-def create():
+
+@app.route('/classtable', methods=('GET', 'POST'))
+def create_student():
     if request.method == 'POST':
         name = request.form['forename']
         surname = request.form['surname']
@@ -98,9 +97,9 @@ def create():
             flash('Bitte geben sie einen Namen an.')
         else:
             databaseHandler.set_student(name,surname, 'FI001', teacher, postcode, street, housenumber)
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('classtable'))
 
-    return render_template('dashboard.html')
+    return render_template('classTable.html')
 
 @app.route('/<int:id>/edit', methods=('GET', 'POST'))
 def edit(id):
