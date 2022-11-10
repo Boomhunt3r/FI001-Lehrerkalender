@@ -8,7 +8,6 @@ from models import User
 
 app = Flask(__name__)
 app.config['SESSION_KEY'] = 'DergeheimegeheimKey'
-#app.config['SESSION_TYPE'] = 'redis'
 app.config['DEBUG'] = True
 
 login_manager = LoginManager()
@@ -40,12 +39,11 @@ def login_post():
     user = databaseHandler.get_login_data(email)
 
     if not user or not check_password_hash(user[2], password):
-        #app.config['SECRET_KEY'] = 'nologin'
         return redirect(url_for('index'))
 
     app.config['SECRET_KEY'] = 'login'
 
-    login_user(user)
+    login_user(create_user(user[1], user[2], user[4]))
     return redirect(url_for('sidebar'))
 
 @app.route('/signup')
@@ -105,8 +103,14 @@ def classlist():
     classes = databaseHandler.get_all_classes()
     return render_template('class.html', classes=classes)
 
-@app.route('/classlist', methods=('POST'))
+@app.route('/classlist', methods=('GET', 'POST'))
 def create_class():
+    name = request.form['classname']
+    teacher = request.form['teacher']
+
     return render_template('class.html')
+
+def create_user(email, password, is_active):
+    return User(email, password, is_active)
 
 app.run()
