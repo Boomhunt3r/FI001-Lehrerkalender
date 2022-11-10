@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klassentabelle</title>
+    <link rel="stylesheet" href="../assets/css/table.css">
+</head>
+<body>
+    <table class="content-table">
+        <thead>
+          <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Postleitzahl</th>
+            <th>Straße</th>
+            <th>Hausnummer</th>
+            <th>Klassenlehrer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Florian</td>
+            <td>Tamm</td>
+            <td>12345</td>
+            <td>Musterstraße</td>
+            <td>1</td>
+            <td>Lisa Laqua</td>
+          </tr>
+          <tr>
+            <td>Luis</td>
+            <td>Billetter</td>
+            <td>12345</td>
+            <td>Musterstraße</td>
+            <td>2</td>
+            <td>Lisa Laqua</td>
+          </tr>
+          <tr>
+            <td>Jannek</td>
+            <td>Vieth</td>
+            <td>12345</td>
+            <td>Musterstraße</td>
+            <td>3</td>
+            <td>Lisa Laqua</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="container">
+        <div id="data">
+            <input type="text" id="name" placeholder="Vorname">
+            <input type="text" id="surname" placeholder="Nachname">
+            <input type="number" id="postcode" placeholder="Postleitzahl">
+            <input type="text" id="street" placeholder="Straße">
+            <input type="number" id="housenumber" placeholder="Hausnummer">
+            <input type="text" id="teacher" placeholder="Lehrer/in">
+            <button>Hinzufügen</button>
+        </div>
+      </div>
+
+      <script src="/script.js"></script>
+</body>
+</html>
