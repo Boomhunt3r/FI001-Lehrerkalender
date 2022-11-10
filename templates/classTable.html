@@ -21,33 +21,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Florian</td>
-            <td>Tamm</td>
-            <td>12345</td>
-            <td>Musterstraße</td>
-            <td>1</td>
-            <td>Lisa Laqua</td>
-          </tr>
-          <tr>
-            <td>Luis</td>
-            <td>Billetter</td>
-            <td>12345</td>
-            <td>Musterstraße</td>
-            <td>2</td>
-            <td>Lisa Laqua</td>
-          </tr>
-          <tr>
-            <td>Jannek</td>
-            <td>Vieth</td>
-            <td>12345</td>
-            <td>Musterstraße</td>
-            <td>3</td>
-            <td>Lisa Laqua</td>
-          </tr>
-        <div class="container">
-                {% block content %} {% endblock %}
-        </div>
+          {% for student in students %}
+            <tr>
+                <td>{{ student['Vorname'] }}</td>
+                <td>{{ student['Nachname'] }}</td>
+                <td>{{ student['PLZ'] }}</td>
+                <td>{{ student['Straße'] }}</td>
+                <td>{{ student['Hausnummer'] }}</td>
+                <td>{{ student['Klassenlehrer'] }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
       </table>
       <div class="container">
