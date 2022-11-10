@@ -75,3 +75,33 @@ def set_login_data(Email, Password):
                  (Email, Password))
     conn.commit()
     conn.close()
+
+def get_all_notes_from_day(id, day):
+    conn = get_db_connection()
+    notes = conn.execute('SELECT * FROM Schuelernotiz WHERE SchuelerID = ? AND Tag = ?', (id, day,)).fetchall()
+    return notes
+
+def get_all_notes_from_student(id):
+    conn = get_db_connection()
+    notes = conn.execute('SELECT * FROM Schuelernotiz WHERE SchuelerID = ?', (id,)).fetchall()
+    return notes
+
+def get_note(id):
+    conn = get_db_connection()
+    note = conn.execute('SELECT * FROM Schuelernotiz WHERE SchuelerID = ?', (id,)).fetchone()
+    return note
+
+def edit_note(id, note, day):
+    conn = get_db_connection()
+    conn.execute('UPDATE Schuelernotiz SET Notiz = ? WHERE SchuelerID = ? WHERE Tag = ?', (note, id, day))
+    conn.commit()
+    conn.close()
+
+def create_note(SchuelerID, Tag, Notiz):
+    conn = get_db_connection()
+    conn.execute('INSERT INTO Schuelernotiz(SchuelerID, Tag, Notiz) VALUES (?, ?, ?)',
+                 (SchuelerID, Tag, Notiz))
+    conn.commit()
+    conn.close()
+
+print(get_all_notes_from_student(1))

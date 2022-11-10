@@ -1,13 +1,18 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, LoginManager
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from api import databaseHandler
+from models import User
 
 app = Flask(__name__)
-app.config['SESSION_KEY'] = 'Der geheime geheim Key'
+app.config['SESSION_KEY'] = 'Dergeheimegeheim Key'
 app.config['SESSION_TYPE'] = 'redis'
 app.config['DEBUG'] = True
+
+login_manager = LoginManager()
+login_manager.login_view = 'index'
+login_manager.init_app(app)
 
 def get_post(post_id):
     conn = get_db_connection()
@@ -22,6 +27,10 @@ def get_post(post_id):
 def index():
     return render_template('index.html')
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/', methods=['POST'])
 def login_post():
     email = request.form.get('email')
@@ -32,6 +41,8 @@ def login_post():
     if not user or not check_password_hash(user[2], password):
         flash('Bitte überprüfe deine Anmelde-Daten.')
         return redirect(url_for('index'))
+
+    app.config['SECRET_KEY'] = 'new'
 
     login_user(user)
     return redirect(url_for('dashboard'))
@@ -51,7 +62,6 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('signup'))
 
-    print(email, password)
     databaseHandler.set_login_data(email, generate_password_hash(password, method='sha256'))
 
     return redirect((url_for('index')))
