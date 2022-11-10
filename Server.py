@@ -90,8 +90,8 @@ def create_student():
         housenumber = request.form['number']
         teacher = request.form['teacher']
 
-        if not name:
-            flash('Bitte geben sie einen Namen an.')
+        if not name or not surname or not postcode or not street or not housenumber or not teacher:
+            return redirect(url_for('classtable'))
         else:
             databaseHandler.set_student(name,surname, 'FI001', teacher, postcode, street, housenumber)
             return redirect(url_for('classtable'))
