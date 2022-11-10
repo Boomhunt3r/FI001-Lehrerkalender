@@ -104,4 +104,10 @@ def create_note(SchuelerID, Tag, Notiz):
     conn.commit()
     conn.close()
 
+def delete_note(ID, Tag):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM Schuelernotiz WHERE SchuelerID = ? WHERE Tag = ?', (ID, Tag))
+    conn.commit()
+    conn.close()
+
 print(get_all_notes_from_student(1))
