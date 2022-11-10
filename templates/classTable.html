@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klassentabelle</title>
-    <link rel="stylesheet" href="../assets/css/table.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/table.css') }}">
 </head>
 <body>
+
     <table class="content-table">
         <thead>
           <tr>
@@ -44,16 +45,19 @@
             <td>3</td>
             <td>Lisa Laqua</td>
           </tr>
+        <div class="container">
+                {% block content %} {% endblock %}
+        </div>
         </tbody>
       </table>
       <div class="container">
         <div id="data">
-            <input type="text" id="name" placeholder="Vorname">
-            <input type="text" id="surname" placeholder="Nachname">
-            <input type="number" id="postcode" placeholder="Postleitzahl">
-            <input type="text" id="street" placeholder="Straße">
-            <input type="number" id="housenumber" placeholder="Hausnummer">
-            <input type="text" id="teacher" placeholder="Lehrer/in">
+            <input type="text" name="name" id="name" placeholder="Vorname">
+            <input type="text" name="surname" id="surname" placeholder="Nachname">
+            <input type="number" name="postcode" id="postcode" placeholder="Postleitzahl">
+            <input type="text" name="street" id="street" placeholder="Straße">
+            <input type="number" name="number" id="housenumber" placeholder="Hausnummer">
+            <input type="text" name="teacher" id="teacher" placeholder="Lehrer/in">
             <button>Hinzufügen</button>
         </div>
       </div>

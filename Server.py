@@ -3,11 +3,12 @@ from flask_login import login_user, login_required, logout_user, LoginManager
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from api import databaseHandler
+from api import datatime
 from models import User
 
 app = Flask(__name__)
-app.config['SESSION_KEY'] = 'Dergeheimegeheim Key'
-app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_KEY'] = 'DergeheimegeheimKey'
+#app.config['SESSION_TYPE'] = 'redis'
 app.config['DEBUG'] = True
 
 login_manager = LoginManager()
@@ -39,10 +40,10 @@ def login_post():
     user = databaseHandler.get_login_data(email)
 
     if not user or not check_password_hash(user[2], password):
-        flash('Bitte überprüfe deine Anmelde-Daten.')
+        #app.config['SECRET_KEY'] = 'nologin'
         return redirect(url_for('index'))
 
-    app.config['SECRET_KEY'] = 'new'
+    app.config['SECRET_KEY'] = 'login'
 
     login_user(user)
     return redirect(url_for('dashboard'))
@@ -73,14 +74,15 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/dashboard')
-@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    students = databaseHandler.get_all_students()
+    print(students)
+    return render_template('classTable.html', students=students)
 
 @app.route('/<int:post_id>')
 def post(post_id):
     post = get_post(post_id)
-    return render_template('post.html', post=post)
+    return render_template('classTable.html', classes=post)
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
@@ -96,7 +98,7 @@ def create():
                          (title, content))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('dashboard'))
 
     return render_template('create.html')
 
@@ -117,7 +119,7 @@ def edit(id):
                          (title, content, id))
             conn.commit()
             conn.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('dashboard'))
 
     return render_template('edit.html', post=post)
 

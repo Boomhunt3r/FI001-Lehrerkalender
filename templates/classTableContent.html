@@ -1,0 +1,14 @@
+{% extends 'classTable.html' %}
+
+{% block content %}
+    {% for student in students %}
+            <tr>
+                <td>{{ student['Vorname'] }}</td>
+                <td>{{ student['Nachname'] }}</td>
+                <td>{{ student['PLZ'] }}</td>
+                <td>{{ student['Straße'] }}</td>
+                <td>{{ student['Hausnummer'] }}</td>
+                <td>{{ student['Klassenlehrer'] }}</td>
+            </tr>
+    {% endfor %}
+{% endblock %}
