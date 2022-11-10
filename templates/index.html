@@ -14,14 +14,14 @@
         <h1>Login</h1>
         <form method="post">
             <div class="txt_field">
-                <input type="text" placeholder="E-Mail" required>
+                <input type="text" name="email" placeholder="E-Mail" required>
             </div>
             <div class="txt_field">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
             <input type="submit" value="Login">
             <div class="signup_link">
-                Kein Mitglied? <a href="{{ url_for('auth.signup')}}">Hier registrieren!</a>
+                Kein Mitglied? <a href="{{ url_for('signup')}}">Hier registrieren!</a>
             </div>
         </form>
     </div>
