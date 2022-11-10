@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Lehrerkalender-Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style.css" >
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
 </head>
 
 <body>
     <div class="center">
-        <h1>Registrieren</h1>
+        <h1>Login</h1>
         <form method="post">
             <div class="txt_field">
-                <input type="text" placeholder="E-Mail" required>
+                <input type="text" name="email" placeholder="E-Mail" required>
             </div>
             <div class="txt_field">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-            <input type="submit" value="Registrieren">
+            <input type="submit" value="Login">
             <div class="signup_link">
-                <a href="/index.html">Zurück zum Login!</a>
+                Kein Mitglied? <a href="{{ url_for('signup')}}">Hier registrieren!</a>
             </div>
         </form>
     </div>
