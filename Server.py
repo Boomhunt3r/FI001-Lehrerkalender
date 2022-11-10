@@ -82,7 +82,6 @@ def classtable():
 def sidebar():
     return render_template('sideBar.html')
 
-
 @app.route('/classtable', methods=('GET', 'POST'))
 def create_student():
     if request.method == 'POST':
