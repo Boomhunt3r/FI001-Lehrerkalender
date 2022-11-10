@@ -9,4 +9,5 @@ def get_time():
 
 def convert_to_date(timestamp):
     date_time = datetime.fromtimestamp(timestamp)
-    return date_time
+    str_date = date_time.strftime("%Y-%m-%d")
+    return str_date

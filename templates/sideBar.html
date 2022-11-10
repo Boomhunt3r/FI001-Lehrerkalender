@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <title>Sidebar</title>
-      <link rel="stylesheet" href="/assets/css/sideBar.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/sidebar.css') }}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
    </head>
    <body>
@@ -20,9 +20,9 @@
             <ul class="list-items">
                <li><a href="#"><i class="fas fa-home"></i>Dashboard</a></li>
                <li><a href="#"><i class="fas fa-calendar-alt"></i>Kalender</a></li>
-               <li><a href="#"><i class="fas fa-address-book"></i>Klassenübersicht</a></li>
+               <li><a href="{{ url_for('classtable')}}"><i class="fas fa-address-book"></i>Klassenübersicht</a></li>
                <li><a href="#"><i class="fas fa-cog"></i>Einstellungen</a></li>
-               <li><a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+               <li><a href="{{ url_for('logout')}}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
             </ul>
          </nav>
       </div>

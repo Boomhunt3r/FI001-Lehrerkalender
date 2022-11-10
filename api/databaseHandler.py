@@ -1,5 +1,5 @@
 import sqlite3
-import datatime
+from api import datatime
 
 def get_db_connection():
     conn = sqlite3.connect('lehrerkalender.db')
@@ -46,6 +46,7 @@ def get_appointment(id):
 def get_all_students():
     conn = get_db_connection()
     students = conn.execute('SELECT * FROM Schueler').fetchall()
+    conn.close()
     return students
 
 def set_student(Vorname, Nachname, Klasse, Klassenlehrer, PLZ, Straße, Hausnummer):
@@ -104,4 +105,8 @@ def create_note(SchuelerID, Tag, Notiz):
     conn.commit()
     conn.close()
 
-print(get_all_notes_from_student(1))
+def delete_note(ID, Tag):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM Schuelernotiz WHERE SchuelerID = ? WHERE Tag = ?', (ID, Tag))
+    conn.commit()
+    conn.close()
