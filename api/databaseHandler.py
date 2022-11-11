@@ -55,6 +55,11 @@ def set_student(Vorname, Nachname, Klasse, Klassenlehrer, PLZ, Straße, Hausnumm
                  (Vorname, Nachname, Klasse, Klassenlehrer, PLZ, Straße, Hausnummer))
     conn.commit()
     conn.close()
+def delete_student(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM Schueler WHERE SchuelerID = ?', (id,))
+    conn.commit()
+    conn.close()
 
 def set_class(Klassenname, Klassenlehrer):
     conn = get_db_connection()

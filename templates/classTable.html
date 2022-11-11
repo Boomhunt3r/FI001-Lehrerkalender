@@ -36,17 +36,23 @@
             <th>Straße</th>
             <th>Hausnummer</th>
             <th>Klassenlehrer</th>
+              <th></th>
           </tr>
         </thead>
         <tbody>
           {% for student in students %}
             <tr>
-                <td>{{ student['Vorname'] }}</td>
-                <td>{{ student['Nachname'] }}</td>
-                <td>{{ student['PLZ'] }}</td>
-                <td>{{ student['Straße'] }}</td>
-                <td>{{ student['Hausnummer'] }}</td>
-                <td>{{ student['Klassenlehrer'] }}</td>
+                <form action="{{ url_for('delete_student', id=student['SchuelerID']) }}" method="post">
+                    <td name="forename">{{ student['Vorname'] }}</td>
+                    <td name="surname">{{ student['Nachname'] }}</td>
+                    <td name="postcode">{{ student['PLZ'] }}</td>
+                    <td name="street">{{ student['Straße'] }}</td>
+                    <td name="number">{{ student['Hausnummer'] }}</td>
+                    <td name="teacher">{{ student['Klassenlehrer'] }}</td>
+                    <td>
+                            <input type="submit" value="Löschen">
+                    </td>
+                </form>
             </tr>
         {% endfor %}
         </tbody>

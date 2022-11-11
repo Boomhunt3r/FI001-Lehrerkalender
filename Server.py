@@ -66,7 +66,6 @@ def sidebar():
 @app.route('/classtable')
 def classtable():
     students = databaseHandler.get_all_students()
-    print(students)
     return render_template('classTable.html', students=students)
 
 @app.route('/classtable', methods=('GET', 'POST'))
@@ -84,6 +83,14 @@ def create_student():
         else:
             databaseHandler.set_student(name,surname, 'FI001', teacher, postcode, street, housenumber)
             return redirect(url_for('classtable'))
+
+    return render_template('classTable.html')
+
+@app.route('/<int:id>/delete', methods=('POST',))
+def delete_student(id):
+    if request.method == 'POST':
+        databaseHandler.delete_student(id)
+        return redirect(url_for('classtable'))
 
     return render_template('classTable.html')
 
