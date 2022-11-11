@@ -8,7 +8,6 @@ from models import User
 
 app = Flask(__name__)
 app.config['SESSION_KEY'] = 'DergeheimegeheimKey'
-#app.config['SESSION_TYPE'] = 'redis'
 app.config['DEBUG'] = True
 
 login_manager = LoginManager()
@@ -40,12 +39,11 @@ def login_post():
     user = databaseHandler.get_login_data(email)
 
     if not user or not check_password_hash(user[2], password):
-        #app.config['SECRET_KEY'] = 'nologin'
         return redirect(url_for('index'))
 
     app.config['SECRET_KEY'] = 'login'
 
-    login_user(user)
+    login_user(create_user(user[1], user[2], user[4]))
     return redirect(url_for('sidebar'))
 
 @app.route('/signup')
@@ -72,15 +70,15 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/sidebar')
+def sidebar():
+    return render_template('sideBar.html')
+
 @app.route('/classtable')
 def classtable():
     students = databaseHandler.get_all_students()
     print(students)
     return render_template('classTable.html', students=students)
-
-@app.route('/sidebar')
-def sidebar():
-    return render_template('sideBar.html')
 
 @app.route('/classtable', methods=('GET', 'POST'))
 def create_student():
@@ -92,42 +90,27 @@ def create_student():
         housenumber = request.form['number']
         teacher = request.form['teacher']
 
-        if not name:
-            flash('Bitte geben sie einen Namen an.')
+        if not name or not surname or not postcode or not street or not housenumber or not teacher:
+            return redirect(url_for('classtable'))
         else:
             databaseHandler.set_student(name,surname, 'FI001', teacher, postcode, street, housenumber)
             return redirect(url_for('classtable'))
 
     return render_template('classTable.html')
 
-@app.route('/<int:id>/edit', methods=('GET', 'POST'))
-def edit(id):
-    post = get_post(id)
+@app.route('/classlist')
+def classlist():
+    classes = databaseHandler.get_all_classes()
+    return render_template('class.html', classes=classes)
 
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
+@app.route('/classlist', methods=('GET', 'POST'))
+def create_class():
+    name = request.form['classname']
+    teacher = request.form['teacher']
 
-        if not title:
-            flash('Title is required!')
-        else:
-            conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?'
-                         'WHERE id = ?',
-                         (title, content, id))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('dashboard'))
+    return render_template('class.html')
 
-    return render_template('edit.html', post=post)
-
-@app.route('/<int:id>/delete', methods=('POST',))
-def delete(id):
-    post = get_post(id)
-    conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('index'))
+def create_user(email, password, is_active):
+    return User(email, password, is_active)
 
 app.run()
