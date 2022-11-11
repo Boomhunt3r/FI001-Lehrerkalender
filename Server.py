@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 from flask_login import login_user, login_required, logout_user, LoginManager
-from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from api import databaseHandler
-from api import datatime
 from models import User
 
 app = Flask(__name__)
@@ -13,15 +11,6 @@ app.config['DEBUG'] = True
 login_manager = LoginManager()
 login_manager.login_view = 'index'
 login_manager.init_app(app)
-
-def get_post(post_id):
-    conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
-    conn.close()
-    if post is None:
-        abort(404)
-    return post
 
 @app.route('/')
 def index():
