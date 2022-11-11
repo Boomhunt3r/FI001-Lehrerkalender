@@ -18,12 +18,16 @@ btnAdd.addEventListener('click', () => {
 
     let template = `
                 <tr>
+                    <td name"id" hidden></td>
                     <td>${name}</td>
                     <td>${surname}</td>
                     <td>${postcode}</td>
                     <td>${street}</td>
                     <td>${housenumber}</td>
                     <td>${teacher}</td>
+                    <td>
+                        <input type="button" value="Löschen">
+                    </td>
                 </tr>`;
     
     table.innerHTML += template 
